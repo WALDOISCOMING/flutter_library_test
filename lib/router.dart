@@ -3,6 +3,7 @@ import 'package:library_test/MainPage.dart';
 import 'package:library_test/PermissionPage.dart';
 import 'package:library_test/undefined_view.dart';
 
+import 'LoggerPage.dart';
 import 'SecureStoragePage.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,9 +13,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/permission":
       var arguments = settings.arguments;
       return MaterialPageRoute(builder: (context)=> PermissionHandlerWidget());
-    case "/storage":
+    case "/logger":
       var arguments = settings.arguments;
-      return MaterialPageRoute(builder: (context)=> SecureStorageItemsWidget());
+      return MaterialPageRoute(builder: (context)=> LoggerHandlerWidget());
   // return MaterialPageRoute(builder: (context)=> LoginView(argument: arguments));
     default:
       return MaterialPageRoute(builder: (context)=> UndefinedView(name :settings.name));

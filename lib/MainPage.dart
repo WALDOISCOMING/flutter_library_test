@@ -21,7 +21,10 @@ class MainPageWidget extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, "/storage");
                 }, child: (const Text('secure storage 화면'))),
-                TextButton(onPressed: () {}, child: (const Text('권한 화면'))),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/logger");
+                    }, child: (const Text('logger 화면'))),
               ],
             )));
   }
