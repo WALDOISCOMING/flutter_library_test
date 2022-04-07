@@ -4,6 +4,7 @@ import 'package:library_test/PermissionPage.dart';
 import 'package:library_test/undefined_view.dart';
 
 import 'AnimationPage.dart';
+import 'BLoCPage.dart';
 import 'LoggerPage.dart';
 import 'SecureStoragePage.dart';
 
@@ -20,6 +21,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/anim":
       var arguments = settings.arguments;
       return MaterialPageRoute(builder: (context)=> TransitionsHomePage());
+    case "/bloc":
+      var arguments = settings.arguments;
+      return MaterialPageRoute(builder: (context)=> BLoCHandlerWidget());
   // return MaterialPageRoute(builder: (context)=> LoginView(argument: arguments));
     default:
       return MaterialPageRoute(builder: (context)=> UndefinedView(name :settings.name));

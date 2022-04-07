@@ -29,6 +29,10 @@ class MainPageWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, "/anim");
                     }, child: (const Text('animation 화면'))),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/bloc");
+                    }, child: (const Text('BLOC 화면'))),
               ],
             )));
   }
