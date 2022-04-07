@@ -6,6 +6,7 @@ import 'package:library_test/undefined_view.dart';
 import 'AnimationPage.dart';
 import 'BLoCPage.dart';
 import 'LoggerPage.dart';
+import 'RecorderPage.dart';
 import 'SecureStoragePage.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,6 +25,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/bloc":
       var arguments = settings.arguments;
       return MaterialPageRoute(builder: (context)=> BLoCHandlerWidget());
+    case "/record":
+      var arguments = settings.arguments;
+      String path = '/test';
+      return MaterialPageRoute(builder: (context)=> AudioRecorder(onStop: (String path) { print('stop!'); },));
   // return MaterialPageRoute(builder: (context)=> LoginView(argument: arguments));
     default:
       return MaterialPageRoute(builder: (context)=> UndefinedView(name :settings.name));

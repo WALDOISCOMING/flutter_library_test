@@ -33,6 +33,10 @@ class MainPageWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, "/bloc");
                     }, child: (const Text('BLOC 화면'))),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/record");
+                    }, child: (const Text('RECORD 화면'))),
               ],
             )));
   }
