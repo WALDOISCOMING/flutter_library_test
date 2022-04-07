@@ -37,6 +37,10 @@ class MainPageWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, "/record");
                     }, child: (const Text('RECORD 화면'))),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/webview");
+                    }, child: (const Text('WEBVIEW 화면'))),
               ],
             )));
   }

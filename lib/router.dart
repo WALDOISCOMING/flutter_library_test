@@ -8,6 +8,7 @@ import 'BLoCPage.dart';
 import 'LoggerPage.dart';
 import 'RecorderPage.dart';
 import 'SecureStoragePage.dart';
+import 'WebviewPage.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch(settings.name){
@@ -29,6 +30,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       var arguments = settings.arguments;
       String path = '/test';
       return MaterialPageRoute(builder: (context)=> AudioRecorder(onStop: (String path) { print('stop!'); },));
+    case "/webview":
+      var arguments = settings.arguments;
+      String path = '/test';
+      return MaterialPageRoute(builder: (context)=> WebViewExample());
   // return MaterialPageRoute(builder: (context)=> LoginView(argument: arguments));
     default:
       return MaterialPageRoute(builder: (context)=> UndefinedView(name :settings.name));
