@@ -5,12 +5,8 @@ import 'package:library_test/fbroadcast/broadcast_keys.dart';
 import 'package:library_test/fbroadcast/page_demo_1.dart';
 import 'package:library_test/fbroadcast/page_demo_2.dart';
 import 'package:library_test/fbroadcast/page_demo_3.dart';
-import 'package:fbutton/fbutton.dart';
-import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:fbroadcast/fbroadcast.dart';
-import 'package:fsuper/fsuper.dart';
-import 'package:ftoast/ftoast.dart';
 
 import 'package:library_test/fbroadcast/location_server.dart';
 
@@ -18,6 +14,7 @@ import 'package:library_test/fbroadcast/location_server.dart';
 //   LocationServer();
 //   runApp(MyApp());
 // }
+FBroadcast? fBroadcast()=> null;
 
 class BroadcastHandlerWidget extends StatefulWidget {
   @override
@@ -48,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    FBroadcast.instance().register(Key_StopCount, (_, __) {
+    fBroadcast()!.register(Key_StopCount, (_, __) {
       runAddCount?.cancel();
       setState(() {
         text = "STOP!";
@@ -75,15 +72,12 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FButton(
-              width: 200,
-              padding: EdgeInsets.only(top: 18.0, bottom: 18.0),
-              alignment: Alignment.center,
-              text: "Demo1: Runner",
-              style: TextStyle(color: Colors.white),
-              color: Colors.blue,
-              isSupportNeumorphism: true,
-              corner: FCorner.all(6.0),
+            TextButton(
+              child: const Text("Demo1: Runner"),
+              style: TextButton.styleFrom(
+                textStyle: TextStyle(color: Colors.white),
+                backgroundColor: Colors.blue
+              ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
@@ -93,17 +87,14 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             const SizedBox(height: 90),
-            FButton(
-              width: 200,
-              padding: EdgeInsets.only(top: 18.0, bottom: 18.0),
-              alignment: Alignment.center,
-              text: "Demo2: User",
-              style: TextStyle(color: Colors.white),
-              color: Colors.blue,
-              isSupportNeumorphism: true,
-              corner: FCorner.all(6.0),
+            TextButton(
+              child: const Text("Demo2: User"),
+              style: TextButton.styleFrom(
+                  textStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.blue
+              ),
               onPressed: () {
-                FBroadcast.instance()
+                fBroadcast()!
                     .stickyBroadcast(Key_MsgCount, value: ++msgCount);
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
@@ -114,17 +105,14 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             const SizedBox(height: 90),
-            FButton(
-              width: 200,
-              padding: EdgeInsets.only(top: 18.0, bottom: 18.0),
-              alignment: Alignment.center,
-              text: "Demo3: Location",
-              style: TextStyle(color: Colors.white),
-              color: Colors.blue,
-              isSupportNeumorphism: true,
-              corner: FCorner.all(6.0),
+            TextButton(
+              child: const Text("Demo3: Location"),
+              style: TextButton.styleFrom(
+                  textStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.blue
+              ),
               onPressed: () {
-                FBroadcast.instance()
+                fBroadcast()!
                     .stickyBroadcast(Key_MsgCount, value: ++msgCount);
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
@@ -144,14 +132,14 @@ class _HomePageState extends State<HomePage> {
 
   addCount(BuildContext context) {
     runAddCount = Timer(Duration(milliseconds: 1000), () {
-      FBroadcast.instance().broadcast(Key_MsgCount, value: ++msgCount);
+      fBroadcast()!.broadcast(Key_MsgCount, value: ++msgCount);
       addCount(context);
     });
   }
 
   @override
   void dispose() {
-    FBroadcast.instance().unregister(this);
+    fBroadcast()!.unregister(this);
     super.dispose();
   }
 }

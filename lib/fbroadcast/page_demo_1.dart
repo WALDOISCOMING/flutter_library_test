@@ -1,9 +1,8 @@
 import 'package:fbroadcast/fbroadcast.dart';
 import 'package:library_test/fbroadcast/broadcast_keys.dart';
 import 'package:library_test/fbroadcast/runner.dart';
-import 'package:fbutton/fbutton.dart';
 import 'package:flutter/material.dart';
-import 'package:fsuper/fsuper.dart';
+FBroadcast? fBroadcast()=> null;
 
 class PageDemo1 extends StatelessWidget {
   Runner runner = Runner();
@@ -12,7 +11,7 @@ class PageDemo1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        FBroadcast.instance().clear(Key_RunnerState);
+        fBroadcast()!.clear(Key_RunnerState);
         return Future.value(true);
       },
       child: Material(
@@ -24,7 +23,7 @@ class PageDemo1 extends StatelessWidget {
               Stateful(
                 /// init
                 initState: (setState, data) {
-                  FBroadcast.instance().register(
+                  fBroadcast()!.register(
                     Key_RunnerState,
                     (value, _) {
                       /// update
@@ -36,7 +35,11 @@ class PageDemo1 extends StatelessWidget {
                   );
                 },
                 builder: (context, setState, data) {
-                  return FSuper(
+                  return Text(
+                    FBroadcast.value(Key_RunnerState) ?? "Preparing..",
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 25),
+                  );
+                  /*return FSuper(
                     width: 280,
                     height: 150,
                     backgroundColor: Colors.grey[800],
@@ -49,22 +52,19 @@ class PageDemo1 extends StatelessWidget {
 
                     /// get value
                     text: FBroadcast.value(Key_RunnerState) ?? "Preparing..",
-                  );
+                  );*/
                 },
               ),
               const SizedBox(height: 100),
-              FButton(
-                width: 100,
-                height: 50,
-                text: "Start",
-                style: TextStyle(color: Colors.white),
-                alignment: Alignment.center,
-                color: Colors.blue,
-                isSupportNeumorphism: true,
-                corner: FCorner.all(6.0),
+              TextButton(
+                child: const Text("Start"),
+                style: TextButton.styleFrom(
+                    textStyle: TextStyle(color: Colors.white),
+                    backgroundColor: Colors.blue
+                ),
                 onPressed: () {
                   /// send run message
-                  FBroadcast.instance()
+                  fBroadcast()!
                       .broadcast(Key_RunnerState, value: "Running...");
                 },
               ),

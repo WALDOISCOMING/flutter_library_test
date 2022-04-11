@@ -1,11 +1,9 @@
 import 'package:fbroadcast/fbroadcast.dart';
 import 'package:library_test/fbroadcast/broadcast_keys.dart';
 import 'package:library_test/fbroadcast/handler_login.dart';
-import 'package:fbutton/fbutton.dart';
-import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
-import 'package:fsearch/fsearch.dart';
-import 'package:fsuper/fsuper.dart';
+FBroadcast? fBroadcast()=> null;
+// FLoading? fLoading()=>null;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,19 +12,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginHandler handler = LoginHandler();
-  FSearchController _controller1 = FSearchController();
-  FSearchController _controller2 = FSearchController();
+  var _broadcastTextController1 = TextEditingController();
+  var _broadcastTextController2 = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
-    _controller1.setListener(() {
-      /// update userName
-      handler.userName = _controller1.text;
+    _broadcastTextController1.addListener(() {
+      handler.userName = _broadcastTextController1.text;
     });
-    _controller2.setListener(() {
-      /// update password
-      handler.password = _controller2.text;
+    _broadcastTextController2.addListener(() {
+      handler.password = _broadcastTextController2.text;
     });
   }
 
@@ -45,12 +42,12 @@ class _LoginPageState extends State<LoginPage> {
             ),
             backgroundColor: Colors.white,
             centerTitle: true,
-            leading: FButton(
-              image: Icon(Icons.arrow_back_ios, color:  Colors.blueGrey),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color:  Colors.blueGrey),
               onPressed: () {
                 Navigator.pop(context);
               },
-            ),
+            )
           ),
           body: Container(
             padding: EdgeInsets.only(left: 50, right: 50),
@@ -66,30 +63,14 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 50),
-                FSearch(
-                  controller: _controller1,
-                  width: double.infinity,
-                  height: 50,
-                  hints: ["User Name", ""],
-                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                  strokeColor:  Colors.black26,
-                  corner: FSearchCorner.all(6.0),
-                  shadowColor:  Colors.grey,
-                  shadowBlur: 5.0,
-                  backgroundColor: Colors.white,
+                TextField(
+                  controller: _broadcastTextController1,
+                  autofillHints: ["User Name", ""],
                 ),
                 const SizedBox(height: 30),
-                FSearch(
-                  controller: _controller2,
-                  width: double.infinity,
-                  height: 50,
-                  hints: ["Password", ""],
-                  padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                  strokeColor:  Colors.black26,
-                  corner: FSearchCorner.all(6.0),
-                  shadowColor:  Colors.grey,
-                  shadowBlur: 5.0,
-                  backgroundColor: Colors.white,
+                TextField(
+                  controller: _broadcastTextController2,
+                  autofillHints: ["Password", ""],
                 ),
                 const SizedBox(height: 15),
                 Text(
@@ -100,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 Stateful(
                   initState: (setState, data) {
                     /// register login receiver
-                    FBroadcast.instance().register(
+                    fBroadcast()!.register(
                       Key_Login,
 
                       /// refresh ui
@@ -108,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                       more: {
                         /// register user receiver
                         Key_User: (value, _) {
-                          FLoading.hide();
+                          // FLoading.hide();
                           Navigator.pop(context);
                         },
                       },
@@ -118,7 +99,22 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   },
                   builder: (context, setState, data) {
-                    return FButton(
+                    return TextButton(
+                      child: const Text("LOGIN"),
+                      style: TextButton.styleFrom(
+                          textStyle: TextStyle(color: Colors.white, fontSize: 18),
+                          backgroundColor: Colors.blue
+                      ),
+                      onPressed: !(FBroadcast.value(Key_Login) ?? false)
+                          ? null
+                          : () {
+                        // _controller1.clearFocus();
+                        // _controller2.clearFocus();
+                        // fLoading()!..show(context);
+                        handler.login();
+                      },
+                    );
+                    /*return FButton(
                       width: double.infinity,
                       height: 50,
                       color: Colors.pink,
@@ -143,19 +139,19 @@ class _LoginPageState extends State<LoginPage> {
                               FLoading.show(context);
                               handler.login();
                             },
-                    );
+                    );*/
                   },
                 ),
                 const SizedBox(height: 25),
-                FSuper(
-                  textAlignment: Alignment.center,
-                  text: "Don't have account?",
-                  style: TextStyle(color:  Colors.white, fontSize: 11),
-                  spans: [
-                    TextSpan(
-                        text: " Sign up", style: TextStyle(color: Colors.pink))
-                  ],
-                ),
+                // FSuper(
+                //   textAlignment: Alignment.center,
+                //   text: "Don't have account?",
+                //   style: TextStyle(color:  Colors.white, fontSize: 11),
+                //   spans: [
+                //     TextSpan(
+                //         text: " Sign up", style: TextStyle(color: Colors.pink))
+                //   ],
+                // ),
               ],
             ),
           ),

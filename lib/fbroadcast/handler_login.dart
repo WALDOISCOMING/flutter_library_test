@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fbroadcast/fbroadcast.dart';
 import 'package:library_test/fbroadcast/broadcast_keys.dart';
 import 'package:library_test/fbroadcast/user.dart';
-import 'package:floading/floading.dart';
+FBroadcast? fBroadcast()=> null;
 
 class LoginHandler {
   String _userName="";
@@ -13,9 +13,9 @@ class LoginHandler {
   set userName(String v) {
     _userName = v;
     if (_textNoEmpty(_userName) && _textNoEmpty(_password)) {
-      FBroadcast.instance().broadcast(Key_Login, value: true);
+      fBroadcast()!.broadcast(Key_Login, value: true);
     } else {
-      FBroadcast.instance().broadcast(Key_Login, value: false);
+      fBroadcast()!.broadcast(Key_Login, value: false);
     }
   }
 
@@ -23,9 +23,9 @@ class LoginHandler {
   set password(String v) {
     _password = v;
     if (_textNoEmpty(_userName) && _textNoEmpty(_password)) {
-      FBroadcast.instance().broadcast(Key_Login, value: true);
+      fBroadcast()!.broadcast(Key_Login, value: true);
     } else {
-      FBroadcast.instance().broadcast(Key_Login, value: false);
+      fBroadcast()!.broadcast(Key_Login, value: false);
     }
   }
 
@@ -33,7 +33,7 @@ class LoginHandler {
   void login() {
     Timer(Duration(milliseconds: 1500), () {
       /// login success，send login success message —— Key_User
-      FBroadcast.instance().broadcast(
+      fBroadcast()!.broadcast(
         Key_User,
         value: User()
           ..avatar = "assets/logo.png"

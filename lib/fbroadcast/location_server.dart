@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:fbroadcast/fbroadcast.dart';
 import 'package:library_test/fbroadcast/broadcast_keys.dart';
 
+FBroadcast? fBroadcast()=> null;
 class LocationServer {
   LocationServer() {
     init();
