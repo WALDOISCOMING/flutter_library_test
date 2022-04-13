@@ -5,7 +5,7 @@ import 'package:library_test/undefined_view.dart';
 
 import 'AnimationPage.dart';
 import 'BLoCPage.dart';
-import 'BroacastPage.dart';
+import 'BackgroundPage.dart';
 import 'LoggerPage.dart';
 import 'RecorderPage.dart';
 import 'SecureStoragePage.dart';
@@ -39,7 +39,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case "/broadcast":
       var arguments = settings.arguments;
       String path = '/test';
-      return MaterialPageRoute(builder: (context)=> BroadcastHandlerWidget());
+      return MaterialPageRoute(builder: (context)=> BackgroundHandlerWidget());
     default:
       return MaterialPageRoute(builder: (context)=> UndefinedView(name :settings.name));
   }
